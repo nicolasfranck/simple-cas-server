@@ -7,8 +7,12 @@ RUN go build -buildvcs=false -o app -v
 # final stage
 FROM alpine:latest
 WORKDIR /dist
+RUN mkdir views
+RUN mkdir -p public/css
+RUN mkdir -p public/js
 COPY --from=build /build/app .
-COPY --from=build /build/views .
-RUN mkdir views && mv *.gohtml views
+COPY --from=build /build/views/*.gohtml views/
+COPY --from=build /build/public/css/*.css public/css/
+COPY --from=build /build/public/js/*.js public/js/
 EXPOSE 4000
-CMD ls -alhtr && ./app -bind :4000
+CMD ./app -bind :4000

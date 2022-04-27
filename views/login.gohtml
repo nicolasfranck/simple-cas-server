@@ -1,11 +1,36 @@
 <!doctype html>
 <html>
+  <head>
+   <link rel="stylesheet" href="/public/css/bootstrap.css">
+   <script type="text/javascript" src="/public/js/bootstrap.js"></script>
+   <style type="text/css">
+    div.form-signin {
+      margin: 20px auto;
+      padding: 20px;
+      max-width: 600px;
+    }
+   </style>
+  </head>
   <body>
-    <form method="post">
-      <b>Username:</b><input type="text" name="username" value="{{.Username}}"><br>
-      <b>Password:</b><input type="password" name="password" value="{{.Password}}"><br>
-      <input type="submit">
-      <input type="hidden" name="service" value="{{.Service}}">
-    </form>
+    <div class="container-fluid">
+      <div class="form-signin">
+      <form method="post">
+        <div class="row mb-3">
+          <label class="col-sm-2 col-form-label" for="username">Username</label>
+          <div class="col-sm-10">
+            <input type="text" name="username" value="{{.Username}}" class="form-control">
+          </div>
+        </div>
+        <div class="row mb-3">
+          <label class="col-sm-2 col-form-label" for="password">Password</label>
+          <div class="col-sm-10">
+            <input type="password" name="password" value="{{.Password}}" class="form-control">
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <input type="hidden" name="service" value="{{.Service}}">
+      </form>
+      </div>
+    </div>
   </body>
 </html>

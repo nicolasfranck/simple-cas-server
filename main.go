@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"net/url"
 	"os"
 	"fmt"
@@ -282,6 +283,8 @@ func main(){
 	router.HandleFunc("/logout", logout).Methods("GET").Name("logout")
 	router.HandleFunc("/serviceValidate", serviceValidate).Name("serviceValidate")
 	router.HandleFunc("/", home).Name("home")
+	fs := http.FileServer(http.Dir("./public/"))
+    router.PathPrefix("/public/").Handler(http.StripPrefix("/public/", fs)).Name("public")
 
 	initSessionStore()
 
@@ -290,6 +293,6 @@ func main(){
 
 	flag.Parse()
 
-	http.ListenAndServe(bind, handlers.LoggingHandler(os.Stdout, router))
+	log.Fatal(http.ListenAndServe(bind, handlers.LoggingHandler(os.Stdout, router)))
 
 }
